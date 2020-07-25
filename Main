@@ -1,0 +1,10 @@
+public class Bookstore
+{	
+    public static void main(String args[])
+    {
+        Funct obj=new Funct();
+        OPTIONS obj2 = new OPTIONS();
+        Membership_Discounts ob2 =new Membership_Discounts();
+        obj2.Menu(obj,ob2);
+    }
+}
