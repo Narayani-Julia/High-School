@@ -1,0 +1,628 @@
+public class Bookstore
+{	
+    public static void main(String args[])
+    {
+        Funct obj=new Funct();
+        OPTIONS obj2 = new OPTIONS();
+        Membership_Discounts ob2 =new Membership_Discounts();
+        obj2.Menu(obj,ob2);
+    }
+}
+
+import java.util.Scanner;
+class Membership_Discounts
+{
+    boolean Mdis=false;
+    int op=0;
+    Scanner can=new Scanner(System.in);
+    public int display()
+    {
+
+        System.out.println("Membership amount : 200\n");
+        System.out.println("Discounts :"); 
+        System.out.println("1.Familly offer  : Pay Rs 750 yearly for 10% discounts, and Reading classes "); 
+        System.out.println("2.Linguist offer :Pay Rs 300 yearly for 5% discounts"); 
+        System.out.println("3.Magnetum offer :Pay Rs 600 yearly for 17.5% discounts");
+        System.out.println("4.No discount");
+        System.out.print("Enter your choice : ");
+        op=can.nextInt();
+        System.out.println();
+
+        if(op==1||op==2||op==3)
+          {
+  Mdis=true;
+	}
+        if(op==1)
+        {
+            System.out.println("Amount to be payed : 750+200");
+            System.out.println("Total Amount : 950");
+        }
+        else if(op==2)
+        {
+            System.out.println("Total amount to be payed : 300+200");
+            System.out.println("Total Amount : 500");
+        }
+        else if(op==3)
+        {
+            System.out.println("Total amount to be payed : 600+200");
+            System.out.println("Total Amount : 800");
+        } 
+        return op;
+    }
+
+    public boolean check()
+    {
+        return Mdis;       
+    }
+
+    public double getDiscount()
+    {
+        double discount=0.0;            
+        if(op==1)
+        {
+            discount=10;
+        }
+        else if(op==2)
+        {
+            discount=5;
+        }
+        else if(op==3)
+        {
+            discount=17.5;
+        } 
+        return discount;
+    }
+}
+
+
+import java.util.Scanner;
+class CHOOSE 
+{
+    Scanner sc=new Scanner(System.in);
+    int p;
+    public int Choose()
+    {
+        System.out.println("1.Horror");
+        System.out.println("2.Bios and Live");
+        System.out.println("3.SciFi");
+        System.out.println("4.Adventure");
+        System.out.println("5.Fiction");
+        System.out.println("6.All of the above");
+        System.out.println("7.Exit");
+        System.out.print("Enter Number : ");
+        p=sc.nextInt();
+        return p;
+    }     
+
+    public int CheckNumber(int a)
+    {
+        System.out.print("Choose a book number : ");
+        p=sc.nextInt();
+        if((a==1&&p>=101&&p<=105)||(a==2&&p>=106&&p<=110)||(a==3&&p>=111&&p<=115)||(a==4&&p>=116 && p<=120)||(a==5&&p>=121&&p<=125)||(a==6&&p>=101&&p<=125))
+            return p;
+        else
+            return -1;
+    }
+
+
+    public int Continue()
+    {
+        System.out.println("\nWould you like to continue? : ");
+        System.out.println("1.Yes");
+        System.out.println("2.No");
+        System.out.print("Choose an option : ");
+        p=sc.nextInt();
+        return p;
+    }    
+}
+
+
+import java.util.*;
+class OPTIONS
+{  
+public static void Menu(Funct obj1,Membership_Discounts ob2)
+    {  
+        Scanner sc=new Scanner(System.in);
+        int option=0;
+        System.out.println("                     Welcome to The Blue Bookstore");
+        System.out.println(" -------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------------------  ");
+        System.out.println();
+        System.out.println("               Address : Blue Bookstore, Street 15,");
+        System.out.println("                         Dawoolwadi,");
+        System.out.println("                         Adheri east - 400053.");
+        System.out.println();
+        System.out.println("          Phone Number : +9168886888");
+        System.out.println();
+        System.out.println(" -------------------------------------------------------------------");
+        System.out.println(" -------------------------------------------------------------------");
+        String name="";
+        long pno=0;
+        String address="";
+        int t=0;
+        while(option!=7)
+        { 
+            System.out.println("\nOptions :");
+            System.out.println("1.Applying for a membership");
+            System.out.println("2.Print available books");
+            System.out.println("3.Buy a book");
+            System.out.println("4.Remove a book ");
+            System.out.println("5.Sort the books bought ");
+            System.out.println("6.Print a bill");
+            System.out.println("7.Exit");
+            System.out.print("Enter a choice : ");
+            option = sc.nextInt();
+            CHOOSE obj=new CHOOSE();
+            System.out.println("\f");
+            int p=1, a;
+            double sum=0.0;
+            switch(option)
+            {
+                case 1: 
+                if(ob2.check())
+                    System.out.println("Only one discount available to each person");
+                else
+                {
+                    ob2.display();
+                    System.out.println(); 
+                    if(ob2.check()==true)
+                    {
+                        System.out.println("Enter name :");
+                        sc=new Scanner(System.in);
+                        name = sc.nextLine();                      
+                        System.out.println("Enter address : ");
+                        address=sc.nextLine();
+                        System.out.println("Enter a phone number : ");
+                        pno=sc.nextLong();
+
+
+
+                        while(pno<=999999999||String.valueOf(pno).length()!=10)
+                        {
+                            System.out.println("The phone number must be a 10 digit no, Try again : ");
+                            pno=sc.nextLong();
+                            long pot=Long.valueOf(pno);
+                            int c=0;
+                            while(pot!=0)
+                            {
+                                pot/=10;
+                                c++;
+                            }
+                            if(c==10)
+                                break;
+                        }
+                        System.out.println("\f");
+                    }
+                }
+                break;
+
+                case 2:
+                while(p==1)
+                {
+	         System.out.println();
+                    System.out.println("Select any one option out of the following genre : ");
+                    a=obj.Choose();
+                    if(a>=1&&a<=6){                     
+                        System.out.println("\f");
+                        obj1.Print(a);
+                    }
+                    else if(a==7)
+                    {
+                        System.out.println("\f");
+                        break;                        
+                    }
+                    
+
+else
+                    {
+                        System.out.println("\fNot a valid option\n");
+                        break;
+                    }
+                }
+                break; 
+
+                case 3: 
+                         while(p==1)
+{                     
+                    System.out.println("Select any one option out of the following genre : ");
+                    a =obj.Choose();
+                    if(a>=1&&a<=6){
+                        obj1.Print(a);   
+                        t =obj.CheckNumber(a);
+                        System.out.println("\f");
+                        if(t==-1)
+                        {
+                            System.out.println("\fInvalid input");
+                            p=2;
+                            break;
+                        }
+                        System.out.println("How many books would you like : ");
+                        int n =sc.nextInt();                        
+                        t--;                        
+                        obj1.BuyingBook(a,t,n);
+                    }   
+                    else if(a==7)
+                    {
+                        System.out.println("\f");
+                        break;                        
+                    }
+           
+
+
+
+         else
+                    {
+                        System.out.println("\fNot a valid option");
+                        break;
+                    }
+                }
+                break;
+
+                case 4:  
+                while(p!=2)
+                {
+                    if(obj1.no!=0){
+                        System.out.println("Item no:  Book bought:\t\t\t\tPrice:\tQty:  Total Price:");
+                        sum=0;
+                        for(int i=0;i<obj1.no;i++)
+                        {
+                            System.out.println((i+1)+".        "+obj1.bill[i]+"\t"+obj1.price[i+1]+" \t"+obj1.qty[i+1]+"     "+(obj1.price[i+1]*obj1.qty[i+1]));
+                            sum=sum+obj1.price[i+1]*obj1.qty[i+1];
+                        }
+                        System.out.println("Total : "+sum);
+                        System.out.println("Which item number : ");
+                        a=sc.nextInt();
+                        t=0;
+                        
+                        if(a>=1&&a<=obj1.no)
+                        {
+                            if(obj1.qty[a]!=1)
+                            {  
+                                System.out.println("How many books do you want to remove : ");
+                                t=sc.nextInt();
+                               
+
+
+
+ if(obj1.qty[a]<t)
+                                {
+                                    System.out.println("\fNot enough books to be removed. ");
+                                    break;
+                                }
+                            }
+                            if(obj1.qty[a]==t||obj1.qty[a]==1)
+                            {
+                                for(int k=a-1;k<obj1.no;k++)
+                                {
+                                    obj1.bill[k]=obj1.bill[k+1];
+                                    obj1.price[k+1]=obj1.price[k+2];
+                                    obj1.qty[k+1]=obj1.qty[k+2];
+                                }
+                                obj1.no--;
+                            }                   
+                            else
+                            {
+                                obj1.qty[a]-=t;
+                            }
+                        }
+                        else
+                            System.out.println("\fNot an index number");
+
+                        System.out.println("Do you want to remove another book?\n1.Yes\n2.No");
+                        p=sc.nextInt();
+                    }
+                    else
+                    {
+                        System.out.println("\fNo Books bought");
+                        break;
+                    }
+                }
+                break;
+
+               
+
+ case 5: 
+                if(obj1.no>1)
+                    obj1.Sort(); 
+                else if(obj1.no==1)
+                {
+                    System.out.println("\fSorted books: ");
+                    System.out.println("Item no: Book bought: \t\t\t\tPrice: \tQty:  Total Price:");
+                    System.out.println("\t1.     "+obj1.bill[0]+" \t"+obj1.price[1]+" \t"+obj1.qty[1]+"     "+(obj1.price[1]*obj1.qty[1]));
+                }
+                else
+                    System.out.println("No books bought");                 
+                break;
+
+                case 6:
+                if(ob2.check()!=true)
+                {
+                    System.out.println("Enter name :");
+                    sc=new Scanner(System.in);
+                    name = sc.nextLine();
+                    System.out.println("Enter address : ");
+                    address=sc.nextLine();
+
+                    System.out.println("Enter a phone number : ");
+                    pno=sc.nextLong();
+                    while(pno<=999999999||String.valueOf(pno).length()!=10)
+                    {
+                        System.out.println("Enter a 10 digit no : ");
+                        pno=sc.nextLong();
+                        long pot=Long.valueOf(pno);
+                        int c=0;
+                        while(pot!=0)
+                        {
+                            pot/=10;
+                            c++;
+                        }
+           
+             if(c==10)
+                            break;
+                        
+                    } 
+                    System.out.println("\f");                   
+                }
+                System.out.println("                         The Blue Bookstore");
+                System.out.println();
+                System.out.println(" -------------------------------------------------------------------  ");
+                System.out.println();
+                System.out.println("               Address : Blue Bookstore, Street 15,");
+                System.out.println("                         Dawoolwadi,");
+                System.out.println("                         Adheri east - 400053.");
+                System.out.println("          Phone Number : +9168886888");
+                System.out.println();
+                System.out.println(" --------------------------------------------------------------------");
+                System.out.println();
+                System.out.println("Name : "+name);
+                System.out.println("Address : "+address);
+                System.out.println("Phone number : "+pno);
+                Calendar c=Calendar.getInstance();
+                System.out.println();
+                System.out.println("Date : "+c.get(Calendar.DATE)+" / "+(c.get(Calendar.MONTH))+" / "+(c.get(Calendar.YEAR)));
+                System.out.println();
+                System.out.println(" --------------------------------------------------------------------");
+                int num=0;
+                sum=0.0;                   
+                if(obj1.no==0)
+                {
+         System.out.println();
+                    System.out.println("\tNo books bought");
+                    System.out.println("\tNo Discount");
+                    break;
+                }
+                else 
+{
+                    System.out.println("Item no:  Book bought:\t\t\t\tPrice:\tQty: Total Price:");
+                    for(int i=0;i<obj1.no;i++)
+                    {
+                        System.out.println((i+1)+".        "+obj1.bill[i]+"\t"+obj1.price[i+1]+" \t"+obj1.qty[i+1]+"     "+(obj1.price[i+1]*obj1.qty[i+1]));
+                        sum=sum+obj1.price[i+1]*obj1.qty[i+1];
+                        num+=obj1.qty[i+1];
+                    }                    
+                }
+                System.out.println("-------------------------------------------------------------------");
+	     System.out.println();
+                System.out.println("\tNo of books : "+num);
+                System.out.println("\tTotal : "+sum);
+                if(ob2.check())
+                {
+                    double dis = ob2.getDiscount();//discount percentage
+                    dis=sum/100*dis;//discount
+                    System.out.println("\tDiscount = "+dis);
+                    dis=sum-dis;//discounted price
+                    System.out.println("\tTotal    = "+dis);
+                }
+                else
+                {
+                    System.out.println("\tNo discount");
+                    System.out.println("\tDicounted Total = "+(sum));
+                }
+                System.out.println();
+                System.out.println("Would you like to : ");
+                System.out.println("1. Continue");
+                System.out.println("2.Exit");
+                System.out.println("Choose an option :");
+                option =sc.nextInt();
+                
+
+if(option==2)
+                {
+                    option=7;
+                    System.out.println("\nThank you for shopping!");
+                    System.out.println("    Have a nice day!");
+                }
+                break;
+
+                case 7:
+                System.out.println("Thanks");
+                break;
+
+                default: 
+                System.out.println("Wrong option.");
+            }
+        }
+    }
+}
+
+class Funct
+{ 
+    String Horror[] = {"Yamunaji         ","Frank Ocean      ","Rex orange County","Bunnicula        ","The Beginning    "};
+    String Bio_Life[]={"Life of Pi       ","Life of cake     ","Warrior          ","Born a crime     ","mago attwood     "};
+    String SciFi[] = {"The hoosh hash   ","Black stallion   ","Yamunaji         ","Samm Henshaw     ","Summer in a day  "};
+    String Adventure[]={"Fast Food        ","Mako             ","Major Lazer      ","Jukebox,the ghost","Steve lacy       "};
+    String Fiction[] ={"Harry Potter     ","Lukas Graham     ","Alex Rider       ","Time Riders      ","Young Samurai    "};   
+    String Hauthor[]= {"Dr. Seusse       ","Hedley           ","Alec Baldwin     ","H.E.R.           ","KWAYE            "};
+    String BLauthor[]={"Tom Micsh        ","Tiffany Haddish  ","Kevin hart       ","Trevor noah      ","Sam Smith        "};
+    String SFauthor[]={"Jeremy Zucker    ","Blackbear        ","ODIE             ","Still woozy      ","Pharrel williams "};
+    String Aauthor[]= {"Rick Riordian    ","Childish Gambino ","Donald Glover    ","FKJ And Masego   ","Lauv             "};
+    String Fauthor[]= {"Frank Ocean      ","Troye sivan      ","Shawn mendes     ","Logic            ","Tyler creator    "};
+    int Hqty[]={10,10,10,10,10};
+    int BLqty[]={10,10,10,10,10};
+    int SFqty[]={10,10,10,10,10};
+    int Aqty[]={10,10,10,10,10};
+    int Fqty[]={10,10,10,10,10};
+    int BookNumber[]={101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125};
+    double ActualPrice[] = {300,299,299,200,499,359,659,659,400,300,299,299,2000,499,699,659,400,300,299,350,350,200,300,459,449};
+    String bill[]=new String[250];
+    double price[]=new double[250];
+    int qty[]=new int[75];
+    int no=0;
+    public void Print(int a)
+    {
+        System.out.println("Book No: Name of Book :\t\t\tAuthor name : \t\tQty:    Price");  
+        int p=0;
+        if(a==1||a==6)
+        {
+            p=0;
+            for(int i=0;i<5;i++)        
+                System.out.println(BookNumber[p]+".     "+Horror[i]+"\t\t"+Hauthor[i]+"\t"+Hqty[i]+"\t"+ActualPrice[p++]);
+        }
+        if(a==2||a==6)
+        {
+            p=5;
+            for(int i=0;i<5;i++)          
+                System.out.println(BookNumber[p]+".     "+Bio_Life[i]+"\t\t"+BLauthor[i]+"\t"+BLqty[i]+"\t"+ActualPrice[p++]);
+        }
+        if(a==3||a==6)
+        {
+            p=10;
+            for(int i=0;i<5;i++)
+                System.out.println(BookNumber[p]+".     "+SciFi[i]+"\t\t"+SFauthor[i]+"\t"+SFqty[i]+"\t"+ActualPrice[p++]); 
+        }
+        if(a==4||a==6)
+        {
+            p=15;
+            for(int i=0;i<5;i++)
+                System.out.println(BookNumber[p]+".     "+Adventure[i]+"\t\t"+Aauthor[i]+"\t"+Aqty[i]+"\t"+ActualPrice[p++]);
+        }
+        if(a==5||a==6)
+        {
+            p=20;
+            for(int i=0;i<5;i++)
+                System.out.println(BookNumber[p]+".     "+Fiction[i]+"\t\t"+Fauthor[i]+"\t"+Fqty[i]+"\t"+ActualPrice[p++]);
+        }
+    }
+
+    public void Sort()
+    {
+        System.out.println("Alphabetical order : ");
+        double tprice;
+        int t1;
+        for(int i=0;i<no;i++)
+        {
+            for(int j=0;j<no-i-1;j++)
+            {
+                if(bill[i].length()<bill[i+1].length())
+                {
+                    String temp=bill[i];
+                    bill[i]=bill[i+1];
+                    bill[i+1]=temp;
+                    tprice=price[i+1];
+                    price[i+1]=price[i+2];
+                    price[i+2]=tprice;
+                    t1=qty[i+1];
+                    qty[i+1]=qty[i+2];
+                    qty[i+2]=t1;
+                } 
+                else if(bill[i].length()==bill[i+1].length())
+                {
+                    if(bill[i].compareToIgnoreCase(bill[i+1])>0)
+                    {
+                        String temp=bill[i];
+                        bill[i]=bill[i+1];
+                        bill[i+1]=temp;
+                        tprice=price[i+1];
+                        price[i+1]=price[i+2];
+                        price[i+2]=tprice;
+                        t1=qty[i+1];
+                        qty[i+1]=qty[i+2];
+                        qty[i+2]=t1;
+                    }                    
+                    if(bill[i].compareToIgnoreCase(bill[i+1])==0)
+                    {
+                        qty[i+1]=qty[i+2]+qty[i+1];
+                        t1=i;
+                        for(int k=t1;k<no;k++)
+                        {
+                            bill[k]=bill[k+1];
+                            price[k+1]=price[k+2];
+                        }
+                        no--;
+                    }
+                }
+            }
+        }
+        System.out.println("\fSorted books: ");
+        System.out.println("Item no: Book bought: \t\t\t\tPrice: \tQty:  Total Price:");
+        
+for(int i=0;i<no;i++)
+           System.out.println((i+1)+".       "+bill[i]+" \t"+price[i+1]+" \t"+qty[i+1]+"     "+(price[i+1]*qty[i+1]));
+ }
+
+    public void BuyingBook(int a, int t,int n)
+    {
+        if(a==1)
+        {  
+            if((Hqty[t-100]-n)<0)
+                System.out.println("\fOnly "+Hqty[t-100]+" books are available");
+            else 
+            { 
+                Hqty[t-100]=Hqty[t-100]-n;
+                bill[no++]=Hauthor[t-100]+" - "+Horror[t-100];
+                price[no]=ActualPrice[t-100];
+                qty[no]=n;
+            }            
+        }
+        if(a==2)
+        {  
+            if((BLqty[t-105]-n)<0)
+                System.out.println("\fOnly "+BLqty[t-105]+"books are available");
+            else
+            {
+                BLqty[t-105]=BLqty[t-105]-n;
+                bill[no++]=BLauthor[t-105]+" - "+Bio_Life[t-105];
+                price[no]=ActualPrice[t-100];
+                qty[no]=n;  
+            }
+        }
+        if(a==3)
+        { 
+            if((SFqty[t-110]-n)<0)
+                System.out.println("\fOnly "+SFqty[t-110]+"books are available");
+
+
+
+           else
+{
+                SFqty[t-110]=SFqty[t-110]-n;
+                bill[no++]=SFauthor[t-110]+" - "+SciFi[t-110];
+                price[no]=ActualPrice[t-100];
+                qty[no]=n;
+            }
+        }
+        if(a==4)
+        { 
+            if((Aqty[t-115]-n)<0)
+                System.out.println("\fOnly "+Aqty[t-115]+"books are available");
+            else{
+                Aqty[t-115]=Aqty[t-115]-n;
+                bill[no++]=Aauthor[t-115]+" - "+Adventure[t-115];
+                price[no]=ActualPrice[t-100];
+                qty[no]=n;
+            }
+        }
+        if(a==5)
+        { 
+            if((Fqty[t-120]-n)<0)
+                System.out.println("\fOnly "+Fqty[t-120]+"books are available");
+           else
+{             
+                Fqty[t-120]=Fqty[t-120]-n;
+                bill[no++]=Fauthor[t-120]+" - "+Fiction[t-120];
+                price[no]=ActualPrice[t-100];
+                qty[no]=n;
+            }
+        }
+    }
+}
