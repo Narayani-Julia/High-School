@@ -1,0 +1,210 @@
+import java.io.*;
+import java.util.Scanner;
+
+class FINALE
+ {      static String name;
+        static String password;
+        static String DOB;
+        static double balance=0;
+        static String AccNum;
+        static int option=1;
+        static int interr=1; //To make sure no one is taking interest twice
+
+    FINALE()
+        {AccNum=" ";
+        password=" ";
+        DOB="00/00/00";
+        balance=0.0;
+        name = " ";
+        }
+    void Entry()
+    {
+         Scanner sc = new Scanner(System.in);
+         System.out.println("Enter your name : ");
+         name=sc.next();
+         System.out.println("Enter the Date of birth: ");
+         DOB=sc.next();
+         System.out.println("Enter your new password : ");
+         password=sc.next();
+         System.out.println("Enter your the starting balance (It should be more than Rs.500): ");
+         double temp=sc.nextDouble();
+         while(temp<500)
+           {
+              System.out.println("WHAT DID WE TELL YOU?? HAD WE NOT SPECIFIED?? It should be not less than Rs.500\nKindly Try again\nEnter your the starting balance (It should be more than Rs.500):");
+              temp=sc.nextDouble();
+              if(balance<500)
+                 continue;
+              else 
+                 break;
+           }
+        
+           FINALE.balance=temp;                      
+    }
+   
+    void Continue()
+    {   Scanner sc=new Scanner(System.in);
+        System.out.println("\n\nWould you like to : \n1.Continue\n2.Exit");
+        option=sc.nextInt();
+        if(option==2)
+         {    System.out.println("\fGoodbye! Thanks for Banking With Us! ");
+              option=7;
+         
+         }
+         else
+            System.out.println("\f");
+    }
+
+    void InterestCalc()
+    {   Scanner sc=new Scanner(System.in);
+        System.out.println("Here are the interest options :");
+        System.out.println("Option 1:\n\tRate of interest:6%\n\tAvailable for any amount of money");
+        System.out.println("Option 2:\n\tRate of interets:8%\n\tAvailable for an amount above ₨. 2,00,000");
+        System.out.println("Option 3:\n\tRate of interets:9%\n\tAvailable for an amount above ₨. 400,000");
+        System.out.println("Enter your option number -Choose wisely: ");
+        option=sc.nextInt();
+        switch(option)
+         {
+             case 1:  FINALE.balance+=0.06*FINALE.balance;
+                           interr++;
+                           break;
+
+             case 2:  if(FINALE.balance>200000)
+                           {
+                            FINALE.balance+=0.08*FINALE.balance;
+                            interr++;
+                            break;
+                           }
+                           else
+                           System.out.println("You can not avail that option. Try something else.");
+                           break;
+
+             case 3:  if(FINALE.balance>400000)
+                            {
+                            FINALE.balance+=0.09*FINALE.balance;
+                            interr++;
+                            break;
+                        }
+                     else
+                       System.out.println("You can not avail that option. Try something else.");
+                       break;
+
+             default: break;
+        }        
+    }
+
+    public static void main()
+    {   FINALE obj=new FINALE();
+                
+        int ans;
+        double temp=0; 
+        int dep=0; 
+        int withdraw=0; 
+        System.out.println("ABC Bank welcomes you!");
+        
+       while(option!=7)//Since option 7 is to exit
+        
+       {   Scanner sc = new Scanner(System.in);
+           System.out.println();
+           System.out.println("Now here are your options: ");
+           System.out.println("1.Create an account");
+           System.out.println("2.View account");
+           System.out.println("3.Modify Account (Interest options)");
+           System.out.println("4.Deposit");
+           System.out.println("5.Withdraw");
+           System.out.println("6.Remaining balance");
+           System.out.println("7.To Exit");
+           System.out.print("Enter your option : ");
+           option=sc.nextInt();
+	//System.out.println("Have any complaints about our company service ..... Call 911");
+           switch(option)
+           {
+               case 1:     System.out.println("\fYou have chosen to Create a new account.\nChoose the type of account from the following:\n1.Saving Account: Interest will be availed\n2.Current Account : No interest will be availed");
+                               ans=sc.nextInt();
+                      if (ans==1)
+                       {
+                           AccNum="S"+((int)(Math.random()* 1000 + 1));
+                           System.out.println("Account Number : "+AccNum);
+                       }
+                      else if(ans==2)
+                       {
+                           AccNum="C"+((int)(Math.random()* 1000 + 1));
+                           System.out.println("Account Number : "+AccNum);
+                           interr=5;
+                       }
+                       obj.Entry();
+                       break;
+
+               case 2: System.out.println("\f\t\t\t"+FINALE.AccNum+" Details");
+                       System.out.println("Customer details: ");
+                       System.out.println("\tCustomer Name: "+name);
+                       System.out.println("\tDate of birth : "+DOB);
+                       System.out.println("Here is your recent account activities: ");
+                       System.out.println("\tNumber of times money was deposited : "+dep);
+                       System.out.println("\tNumber of times money was withdrawn : "+withdraw);
+                       System.out.println("\tbalance at the end : "+FINALE.balance);
+                       obj.Continue();
+                       break;
+                     
+               case 3: System.out.println("\fYou have chosen to Modify the account.\nWould you like to:\n1.Change the password\n2.Choose an interest option\nWhat option number have you chosen? :");
+                       option=sc.nextInt();
+                     if(option==1)
+                      { System.out.println("Enter the old passord: ");
+                        String onl=sc.next();
+                           if(onl.equals(password)==true)
+                            {System.out.println("Enter new password: ");
+                             password=sc.next();
+                            }
+                            else
+                           { System.out.println("Ouch! That is wrong. Try another option");
+                             break;
+                           }
+                      }
+                       
+                       else if(option==2)
+                       {   if(interr>=2)
+                            {  
+                             System.out.println("Woah, you cant take interest more than once per year, you already did it once.");
+                             break;
+                            } 
+                           System.out.println("You have to chose an interest option.");
+                           obj.InterestCalc();
+                       }
+                       obj.Continue();
+                       break;
+                       
+               case 4: System.out.println("\fYou have chosen to deposit\nEnter the amount to be deposited: ");
+                       temp=sc.nextDouble(); //Here the variable stores the value of the deposit
+                       FINALE.balance+=temp;
+                       System.out.println("Here is your balance : "+FINALE.balance);
+                       dep++;
+                       obj.Continue();
+                       break;
+                       
+               case 5: System.out.println("\fYou have chosen to withdraw.\nEnter the amount to be withdrawn: ");
+                       temp=sc.nextDouble();
+                       withdraw++;
+                       if(temp<=FINALE.balance)
+                       {
+                           FINALE.balance-=temp;
+                           System.out.println("Here is your remaining balance : "+FINALE.balance);
+                           break;
+                       }
+                       else
+                       {
+                           System.out.println("Ouch, you do not have enough money to withdraw that amount.\nTry another option");
+                       }
+                       obj.Continue();
+                       break;
+                                              
+               case 6: System.out.println("\fHere is your remaining balance : "+FINALE.balance);
+                        obj.Continue();
+                       break;
+               
+               case 7: System.out.println("\fThanks for Banking with us!");
+                        break;
+                                                     
+               default:System.out.println("\fObject Oriented Programming System (OOPS) !! You did a mistake, Try again.");//See that pun I put there?
+           }
+       }
+    }
+}
